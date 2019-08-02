@@ -8,7 +8,7 @@ kubectl apply -f access.yaml
 
 sa_secret_token_name=$(kubectl get secret -n $namespace | grep "$namespace-user-token" | cut -d ' ' -f 1)
 
-token=$(kubectl get secret $sa_secret_token_name -n $namespace -o "jsonpath={.data.token}" | base64 -D)
+token=$(kubectl get secret $sa_secret_token_name -n $namespace -o "jsonpath={.data.token}" | base64 -d)
 certificate=$(kubectl get secret $sa_secret_token_name -n $namespace -o "jsonpath={.data['ca\.crt']}")
 
 sed -i 's/$KUBERNETES_API_ENDPOINT/'$kubernetes_api_endpoint'/g' kube_config.yaml
