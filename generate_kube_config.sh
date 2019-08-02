@@ -1,5 +1,6 @@
 kubernetes_api_endpoint=$1
-namespace=$2
+cluster_name=$2
+namespace=$3
 
 kubectl create namespace $namespace
 sed -i 's/$NAMESPACE/'$namespace'/g' access.yaml
@@ -14,6 +15,7 @@ certificate=$(kubectl get secret $sa_secret_token_name -n $namespace -o "jsonpat
 sed -i 's/$KUBERNETES_API_ENDPOINT/'$kubernetes_api_endpoint'/g' kube_config.yaml
 sed -i 's/$CERTIFICATE/'$certificate'/g' kube_config.yaml
 sed -i 's/$TOKEN/'$token'/g' kube_config.yaml
+sed -i 's/$CLUSTER_NAME/'$cluster_name'/g' kube_config.yaml
 
 echo "Please place the output in /root/.kube/config file"
 cat kube_config.yaml
