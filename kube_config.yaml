@@ -7,7 +7,7 @@ clusters:
 - cluster:
     certificate-authority-data: $CERTIFICATE
     server: https://$KUBERNETES_API_ENDPOINT
-  name: my-cluster
+  name: $CLUSTER_NAME
 
 # Define the user
 users:
@@ -20,7 +20,7 @@ users:
 # Define the context: linking a user to a cluster
 contexts:
 - context:
-    cluster: my-cluster
+    cluster: $CLUSTER_NAME
     namespace: $NAMESPACE
     user: $NAMESPACE-user
   name: $NAMESPACE
